@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1016832455155",
+    "firebase_url": "https://christ-chapel-sh-mobile.firebaseio.com",
+    "project_id": "christ-chapel-sh-mobile",
+    "storage_bucket": "christ-chapel-sh-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016832455155:android:f8202b4e88fb4f05",
+        "android_client_info": {
+          "package_name": "com.daysevenstudios.christchapelsh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1016832455155-3g6vjobbehi5q2hf28ikfi1as9273qn8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmHviuoiYWJ43RzThrwmpSkkyUE8d9jF0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

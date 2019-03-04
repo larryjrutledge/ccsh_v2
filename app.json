@@ -1,0 +1,46 @@
+{
+  "expo": {
+    "name": "Christ Chapel",
+    "description": "A Place to Belong",
+    "slug": "christchapelsh",
+    "privacy": "public",
+    "sdkVersion": "32.0.0",
+    "platforms": ["ios", "android"],
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "icon": "./src/assets/images/icon.png",
+    "primaryColor": "#2c2c2c",
+    "splash": {
+      "image": "./src/assets/images/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#2c2c2c"
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "christ-chapel-at-spring-hill",
+            "project": "christ-chapel-mobile-app",
+            "authToken": "c9b5b50cda6e48d3b6b32e5326aba5248a30ef427b5b430297ec48d63e792d73"
+          }
+        }
+      ]
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.daysevenstudios.christchapelsh",
+      "buildNumber": "2.0.0",
+      "icon": "./src/assets/images/icon.png"
+    },
+    "android": {
+      "package": "com.daysevenstudios.christchapelsh",
+      "googleServicesFile": "./google-services.json",
+      "versionCode": 5
+    }
+  }
+}
