@@ -66,4 +66,5 @@ export const COMMGROUP_SIGNUP_TEMPLATE_ID = 'd-6ccdae3373184e53944b4e6e39639651'
 export const PRAYER_REQUEST_TEMPLATE_ID = 'd-9aa52458f80547bc8beaccd2e5a69383'
 export const NEXT_STEPS_TEMPLATE_ID = 'd-3770e9fbc4f744f1a939663352540b74'
 
+export const MAIN_SCREEN_ROUTE = 'admin/configuration/mainScreen/'
 export const FORM_EMAIL_ROUTE = 'admin/configuration/forms/'

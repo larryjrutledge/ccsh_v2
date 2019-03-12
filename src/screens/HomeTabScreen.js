@@ -4,6 +4,7 @@ import {
   AppState,
   Dimensions,
   Button,
+  FlatList,
   Image,
   Text,
   View,
@@ -13,6 +14,7 @@ import {
   TouchableOpacity
 } from 'react-native'
 import { LinearGradient, Notifications } from 'expo'
+import { Feather } from '@expo/vector-icons'
 import * as firebase from 'firebase'
 
 import * as Constants from 'src/config/Constants'
@@ -32,7 +34,8 @@ class HomeTabScreen extends Component {
     this.state = {
       appState: AppState.currentState,
       pushEnabled: false,
-      pushData: 'this is a test'
+      pushData: 'this is a test',
+      mainItemList: []
     }
   }
 
@@ -73,9 +76,40 @@ class HomeTabScreen extends Component {
     this.setState({ appState: nextAppState })
   }
 
+  getItemList = async () => {
+    var itemList = []
+    var snapshot = await firebase
+      .database()
+      .ref(Constants.MAIN_SCREEN_ROUTE)
+      .orderByChild('Position')
+      .once('value')
+
+    if (snapshot.exists()) {
+      snapshot.forEach(snap => {
+        var val = snap.val()
+
+        if (val.Published) {
+          itemList.push({
+            title: val.Title,
+            imgUrl: val.Image,
+            route: val.Route
+          })
+        }
+      })
+    }
+
+    return itemList
+  }
+
   componentDidMount() {
     AppState.addEventListener('change', this.handleAppStateChange)
     this.checkUpdate()
+
+    this.getItemList().then(itemList =>
+      this.setState({
+        mainItemList: itemList
+      })
+    )
 
     registerForPushNotifications().then(token => {
       if (token) {
@@ -145,6 +179,49 @@ class HomeTabScreen extends Component {
     ])
   }
 
+  renderItem = item => {
+    return (
+      <TouchableOpacity
+        style={{
+          alignSelf: 'stretch',
+          marginHorizontal: 5,
+          marginBottom: 3
+          // paddingBottom: 5
+        }}
+        onPress={() => alert('You pressed: ' + item.item.route)}
+      >
+        <Image
+          source={{ uri: item.item.imgUrl }}
+          resizeMode="center"
+          style={{ height: 150 }}
+        />
+        <View
+          style={{
+            position: 'absolute',
+            height: 35,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)'
+          }}
+        />
+        <Text
+          style={{
+            position: 'absolute',
+            width: '100%',
+            textAlign: 'center',
+            bottom: 0 + 5,
+            color: 'white',
+            fontSize: 20,
+            fontWeight: '300'
+          }}
+        >
+          {item.item.title}
+        </Text>
+      </TouchableOpacity>
+    )
+  }
+
   render() {
     return (
       <LinearGradient
@@ -170,128 +247,48 @@ class HomeTabScreen extends Component {
             alignItems: 'center'
           }}
         >
-          <Image
-            resizeMode="cover"
-            source={require('src/assets/images/header/home.png')}
-            style={{ height: IMAGE_HEIGHT, width: MAX_WIDTH }}
-          />
-          <ScrollView
-            bounces={false}
+          <View
             style={{
-              // flex: 5,
-              alignSelf: 'stretch'
+              alignSelf: 'stretch',
+              alignItems: 'center',
+              width: MAX_WIDTH
             }}
           >
-            <View
-              style={{
-                alignSelf: 'stretch',
-                height: 150,
-                backgroundColor: 'white',
-                borderColor: 'lightblue',
-                borderWidth: 1,
-                paddingBottom: 5,
-                marginHorizontal: 5,
-                borderRadius: 5
-              }}
-            >
-              <Text style={{ color: 'black' }}>Give</Text>
-              <Button
-                onPress={() => alert('you pressed build email')}
-                title="Build Email"
-              />
-            </View>
-            <View
-              style={{
-                alignSelf: 'stretch',
-                height: 150,
-                backgroundColor: 'white',
-                borderColor: 'lightblue',
-                borderWidth: 1,
-                paddingBottom: 5,
-                marginHorizontal: 5,
-                borderRadius: 5
-              }}
-            >
-              <Text style={{ color: 'black' }}>Give</Text>
-              <Button
-                onPress={() => alert('you pressed build email')}
-                title="Build Email"
-              />
-            </View>
-            <View
-              style={{
-                alignSelf: 'stretch',
-                height: 150,
-                backgroundColor: 'white',
-                borderColor: 'lightblue',
-                borderWidth: 1,
-                paddingBottom: 5,
-                marginHorizontal: 5,
-                borderRadius: 5
-              }}
-            >
-              <Text style={{ color: 'black' }}>Give</Text>
-              <Button
-                onPress={() => alert('you pressed build email')}
-                title="Build Email"
-              />
-            </View>
-
-            <View
-              style={{
-                alignSelf: 'stretch',
-                height: 150,
-                backgroundColor: 'white',
-                borderColor: 'lightblue',
-                borderWidth: 1,
-                paddingBottom: 5,
-                marginHorizontal: 5,
-                borderRadius: 5
-              }}
-            >
-              <Text style={{ color: 'black' }}>Give</Text>
-              <Button
-                onPress={() => alert('you pressed build email')}
-                title="Build Email"
-              />
-            </View>
-          </ScrollView>
-          {/* <View style={{ flex: 1 }}>
-            <Text style={{ color: 'white' }}>Home Tab Screen</Text>
-            {today === Constants.DAY_OF_WEEK.SATURDAY ? (
-              <Text style={{ color: 'white' }}>Today is Saturday</Text>
-            ) : (
-              <Text style={{ color: 'white' }}> Today is not Saturday</Text>
-            )}
-            <Text style={{ color: 'white' }}> Today is: {today} </Text>
-
             <TouchableOpacity
               onPress={() => this.props.navigation.openDrawer()}
+              style={{
+                position: 'absolute',
+                padding: 10,
+                left: 0,
+                top: 18
+              }}
             >
-              <Text>Open Drawer</Text>
+              <Feather name="menu" size={20} color={'white'} />
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.openDrawer()}
-            >
-              <LinearGradient
-                colors={['#4c669f', '#3b5998', '#192f6a']}
-                style={{ padding: 10, alignItems: 'center', borderRadius: 5 }}
-              >
-                <Text
-                  style={{
-                    backgroundColor: 'transparent',
-                    fontSize: 15,
-                    color: '#fff'
-                  }}
-                >
-                  Open Drawer
-                </Text>
-              </LinearGradient>
-            </TouchableOpacity>
-            <View style={{ borderColor: 'yellow', borderWidth: 3 }}>
-              <Text style={{ color: 'white' }}>{this.state.pushData}</Text>
-            </View>
-          </View> */}
+            <Image
+              resizeMode="center"
+              source={require('src/assets/images/header/home.png')}
+              style={{
+                height: IMAGE_HEIGHT - 45,
+                width: MAX_WIDTH - 70
+              }}
+            />
+          </View>
+          <View
+            style={{
+              alignSelf: 'stretch',
+              flex: 1
+            }}
+          >
+            <FlatList
+              style={{
+                alignSelf: 'stretch'
+              }}
+              data={this.state.mainItemList}
+              keyExtractor={(data, index) => index.toString()}
+              renderItem={this.renderItem}
+            />
+          </View>
         </SafeAreaView>
       </LinearGradient>
     )

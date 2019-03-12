@@ -200,25 +200,30 @@ class ConnectCardScreen extends React.Component {
     this.storeConnectNextSteps(values)
   }
 
-  _handleSubmit = values => {
+  _handleSubmit = async values => {
     // // store in redux
-    this.props.setServiceTime(values.service_time)
-    this.props.setFullName(values.fullName)
-    this.props.setEmail(values.email)
-    this.props.setAddressStreet(values.address_street)
-    this.props.setAddressCity(values.address_city)
-    this.props.setAddressState(values.address_state)
-    this.props.setAddressPostal(values.address_postal)
-    this.props.setPhone(values.phone)
-    this.props.setGuestType(values.guest_type)
-    this.props.setMarketingType(values.marketing_type)
-    this.props.setNextStepFollowChrist(values.nextStepFollowChrist)
-    this.props.setNextStepRecommitLife(values.nextStepRecommitLife)
-    this.props.setNextStepWaterBaptism(values.nextStepWaterBaptism)
-    this.props.setNextStepNextStepInfo(values.nextStepNextStepInfo)
-    this.props.setNextStepCommunityGroup(values.nextStepCommunityGroup)
+    await this.props.setServiceTime(values.service_time)
+    await this.props.setFullName(values.fullName)
+    await this.props.setEmail(values.email)
+    await this.props.setAddressStreet(values.address_street)
+    await this.props.setAddressCity(values.address_city)
+    await this.props.setAddressState(values.address_state)
+    await this.props.setAddressPostal(values.address_postal)
+    await this.props.setPhone(values.phone)
+    await this.props.setGuestType(values.guest_type)
+    await this.props.setMarketingType(values.marketing_type)
+    await this.props.setNextStepFollowChrist(values.nextStepFollowChrist)
+    await this.props.setNextStepRecommitLife(values.nextStepRecommitLife)
+    await this.props.setNextStepWaterBaptism(values.nextStepWaterBaptism)
+    await this.props.setNextStepNextStepInfo(values.nextStepNextStepInfo)
+    await this.props.setNextStepCommunityGroup(values.nextStepCommunityGroup)
 
-    this._storeInDB(values)
+    await this._storeInDB(values)
+
+    this.setState({
+      showNotificationPopup: true,
+      dialogMessage: 'Thank you for checking in....'
+    })
   }
 
   render() {
