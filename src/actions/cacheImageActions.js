@@ -15,6 +15,7 @@ _getFileNameFromURI = uri => {
     .shift()
     .split('/')
     .pop()
+    .replace(/[^0-9a-zA-Z_\.]/gi, '')
 }
 
 const _splitFileName = fileName => {
@@ -92,10 +93,7 @@ export const cacheImageFetch = payload => {
           FileSystem.downloadAsync(payload.uri, localFilePath)
             .then(downloaded => {
               if (downloaded.status === 200) {
-                dispatch(
-                  cacheImageSuccess(payload.uri, localFile)
-                  // cacheImageSuccess(payload.uri, localFile)
-                )
+                dispatch(cacheImageSuccess(payload.uri, localFile))
                 // generate thumbnail
                 _generateThumbnail(localFilePath)
               } else {
@@ -103,6 +101,7 @@ export const cacheImageFetch = payload => {
               }
             })
             .catch(e => {
+              console.log('Cache Image Download Failed: ', e)
               dispatch(cacheImageError(payload.uri))
             })
         }

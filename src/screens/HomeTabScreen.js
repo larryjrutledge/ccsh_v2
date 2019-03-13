@@ -18,11 +18,12 @@ import { Feather } from '@expo/vector-icons'
 import * as firebase from 'firebase'
 
 import * as Constants from 'src/config/Constants'
-
 import {
   setBadgeNumber,
   registerForPushNotifications
 } from 'src/config/PushNotifications'
+
+import { CachedProgressiveImage } from 'src/components/Image'
 
 const today = new Date().getDay()
 const { width: MAX_WIDTH, height: MAX_HEIGHT } = Dimensions.get('window')
@@ -190,11 +191,19 @@ class HomeTabScreen extends Component {
         }}
         onPress={() => alert('You pressed: ' + item.item.route)}
       >
-        <Image
-          source={{ uri: item.item.imgUrl }}
-          resizeMode="center"
-          style={{ height: 150 }}
+        <CachedProgressiveImage
+          resizeMode="cover"
+          // resizeMethod="scale"
+          style={{
+            height: 200,
+            alignSelf: 'stretch'
+          }}
+          source={{
+            uri: item.item.imgUrl
+          }}
+          ttl={30}
         />
+
         <View
           style={{
             position: 'absolute',

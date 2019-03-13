@@ -63,8 +63,6 @@ class CachedProgressiveImage extends React.Component {
   render() {
     const { thumbnailSource, source, style, ...props } = this.props
 
-    // return <Image {...this.props} source={this._getSource()} />
-
     return (
       <View style={styles.container}>
         <Animated.Image
@@ -72,7 +70,7 @@ class CachedProgressiveImage extends React.Component {
           source={this._getThumbnailSource()}
           style={[
             style,
-            styles.imageOverlay,
+            // styles.imageOverlay,
             {
               opacity: this.thumbnailAnimated
               // borderColor: 'yellow',
