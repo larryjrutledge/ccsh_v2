@@ -2,6 +2,7 @@ import React from 'react'
 import {
   Dimensions,
   Image,
+  KeyboardAvoidingView,
   StyleSheet,
   Text,
   TextInput,
@@ -14,6 +15,7 @@ import { AntDesign, Ionicons } from '@expo/vector-icons'
 import { connect } from 'react-redux'
 import { connectActionSheet } from '@expo/react-native-action-sheet'
 import AppIntroSlider from 'react-native-app-intro-slider'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import {
   setProfileHasOnboarded,
@@ -34,23 +36,23 @@ const slides = [
     text:
       'Page 1 text - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sem tortor, pellentesque sed neque nec, rhoncus dapibus ligula.',
     icon: 'ios-images',
-    colors: ['#63E2FF', '#B066FE']
+    colors: ['#144e76', '#3a85bf']
   },
   {
-    key: 'key-2',
-    title: 'Page 2 Title',
+    key: 'key-userProfile',
+    title: 'User Profile',
     text:
       'page 2 text - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sem tortor, pellentesque sed neque nec, rhoncus dapibus ligula.',
     icon: 'ios-options',
-    colors: ['#A3A1FF', '#3A3897']
+    colors: ['#144e76', '#3a85bf']
   },
   {
-    key: 'key-3',
+    key: 'key-pushNotifications',
     title: 'Page 3 Title',
     text:
       'Page 3 Text - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sem tortor, pellentesque sed neque nec, rhoncus dapibus ligula.',
     icon: 'ios-beer',
-    colors: ['#29ABE2', '#4F00BC']
+    colors: ['#144e76', '#3a85bf']
   }
 ]
 
@@ -128,56 +130,167 @@ class OnboardScreen extends React.Component {
     this.props.setOnboarded(true)
   }
 
-  _renderItem = props => {
-    if (props.key === 'key-2') {
-      return (
-        <View
-          style={[
-            styles.mainContent,
-            {
-              backgroundColor: 'grey',
-              paddingTop: props.topSpacer,
-              paddingBottom: props.bottomSpacer,
-              width: props.width,
-              height: props.height
-            }
-          ]}
-        >
-          <Text style={styles.title}>{props.title}</Text>
-          <Text style={styles.text}>{props.text}</Text>
-          <Text style={styles.title}>User Profile Image & Name</Text>
-        </View>
-      )
-    }
-
-    return (
-      <LinearGradient
-        style={[
-          styles.mainContent,
-          {
-            paddingTop: props.topSpacer,
-            paddingBottom: props.bottomSpacer,
-            width: props.width,
-            height: props.height
-          }
-        ]}
-        colors={props.colors}
-        start={{ x: 0, y: 0.1 }}
-        end={{ x: 0.1, y: 1 }}
+  _renderUserProfile = props => (
+    <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'flex-end',
+          marginTop: 30
+        }}
       >
-        <Ionicons
-          style={{ backgroundColor: 'transparent' }}
-          name={props.icon}
-          size={200}
-          color="white"
+        <Text style={styles.title}>{props.title}</Text>
+        <Text style={styles.text}>{props.text}</Text>
+      </View>
+
+      <View style={{ flex: 2 }}>
+        <TouchableOpacity
+          style={{ flex: 1 }}
+          onPress={this.openProfileActionSheet}
+        >
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            <View
+              style={{
+                width: 190,
+                height: 190,
+                borderRadius: 95,
+                backgroundColor: '#232323',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <View
+                style={{
+                  width: 185,
+                  height: 185,
+                  borderRadius: 92,
+                  backgroundColor: 'white',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                {this.props.profileImageData !== '' ? (
+                  <Image
+                    source={{ uri: this.props.profileImageData }}
+                    style={{
+                      width: 180,
+                      height: 180,
+                      borderRadius: 90
+                    }}
+                  />
+                ) : (
+                  <React.Fragment>
+                    <Image
+                      source={require('../assets/generic-profile-picture.png')}
+                      style={{ width: 180, height: 180, borderRadius: 90 }}
+                    />
+                    <Text
+                      style={{
+                        position: 'absolute',
+                        left: 0,
+                        right: 0,
+                        textAlign: 'center',
+                        color: 'black'
+                      }}
+                    >
+                      Click to Set Profile Image
+                    </Text>
+                  </React.Fragment>
+                )}
+              </View>
+            </View>
+          </View>
+        </TouchableOpacity>
+      </View>
+      <View
+        style={{
+          flex: 1,
+          alignSelf: 'stretch'
+        }}
+      >
+        <TextInput
+          style={{
+            paddingHorizontal: 10,
+            marginHorizontal: 60,
+            fontSize: 20,
+            fontWeight: '300',
+            color: 'white',
+            borderBottomColor: 'white',
+            borderBottomWidth: 2
+          }}
+          autoCapitalize="words"
+          autoCorrect={false}
+          placeholder="Your Full Name"
+          placeholderTextColor="white"
+          textAlign="center"
+          selectionColor="white"
         />
-        <View>
-          <Text style={styles.title}>{props.title}</Text>
-          <Text style={styles.text}>{props.text}</Text>
-        </View>
-      </LinearGradient>
-    )
-  }
+      </View>
+    </KeyboardAvoidingView>
+  )
+
+  _renderPushNotifications = props => (
+    <React.Fragment>
+      <Ionicons
+        style={{
+          backgroundColor: 'transparent'
+        }}
+        name={props.icon}
+        size={200}
+        color="white"
+      />
+      <View>
+        <Text style={styles.title}>{props.title}</Text>
+        <Text style={styles.text}>{props.text}</Text>
+      </View>
+    </React.Fragment>
+  )
+
+  _renderStandard = props => (
+    <React.Fragment>
+      <Ionicons
+        style={{
+          backgroundColor: 'transparent'
+        }}
+        name={props.icon}
+        size={200}
+        color="white"
+      />
+      <View>
+        <Text style={styles.title}>{props.title}</Text>
+        <Text style={styles.text}>{props.text}</Text>
+      </View>
+    </React.Fragment>
+  )
+
+  _renderItem = props => (
+    <LinearGradient
+      style={[
+        styles.mainContent,
+        {
+          paddingTop: props.topSpacer,
+          paddingBottom: props.bottomSpacer,
+          width: props.width,
+          height: props.height
+        }
+      ]}
+      colors={props.colors}
+      start={{ x: 0, y: 0.1 }}
+      end={{ x: 0.1, y: 1 }}
+    >
+      {props.key === 'key-userProfile'
+        ? this._renderUserProfile(props)
+        : props.key === 'key-pushNotifications'
+        ? this._renderPushNotifications(props)
+        : this._renderStandard(props)}
+    </LinearGradient>
+  )
 
   render() {
     const { profileImageData, profileUserName } = this.props

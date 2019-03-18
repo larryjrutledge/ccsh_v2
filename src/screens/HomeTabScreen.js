@@ -25,7 +25,6 @@ import {
 
 import { CachedProgressiveImage } from 'src/components/Image'
 
-const today = new Date().getDay()
 const { width: MAX_WIDTH, height: MAX_HEIGHT } = Dimensions.get('window')
 const IMAGE_HEIGHT = MAX_WIDTH / 3
 
@@ -78,6 +77,7 @@ class HomeTabScreen extends Component {
   }
 
   getItemList = async () => {
+    const _today = new Date().getDay()
     var itemList = []
     var snapshot = await firebase
       .database()
@@ -90,11 +90,17 @@ class HomeTabScreen extends Component {
         var val = snap.val()
 
         if (val.Published) {
-          itemList.push({
-            title: val.Title,
-            imgUrl: val.Image,
-            route: val.Route
-          })
+          if (
+            !val.DayOfWeek ||
+            _today === Constants.DAY_OF_WEEK[val.DayOfWeek.toUpperCase()]
+          ) {
+            itemList.push({
+              title: val.Title,
+              imgUrl: val.Image,
+              route: val.Route,
+              dayOfWeek: val.DayOfWeek || 'NONE'
+            })
+          }
         }
       })
     }
