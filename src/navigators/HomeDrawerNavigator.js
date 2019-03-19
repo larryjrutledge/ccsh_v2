@@ -10,7 +10,6 @@ import PrayerRequestScreen from 'src/screens/PrayerRequestScreen'
 import LocationScreen from 'src/screens/LocationScreen'
 import SettingsScreen from 'src/screens/SettingsScreen'
 import NextStepsScreen from 'src/screens/NextStepsScreen'
-import ConnectCardScreen from 'src/screens/ConnectCardScreen'
 import AdminScreen from 'src/screens/AdminScreen'
 import Drawer from 'src/components/Drawer'
 
@@ -22,15 +21,6 @@ const HomeDrawerNavigator = createDrawerNavigator(
         drawerLabel: 'Home',
         drawerIcon: ({ tintColor }) => (
           <FontAwesome name="home" size={20} color={tintColor} />
-        )
-      }
-    },
-    Connect: {
-      screen: ConnectCardScreen,
-      navigationOptions: {
-        drawerLabel: 'Connect Card',
-        drawerIcon: ({ tintColor }) => (
-          <SimpleLineIcons name="loop" size={20} color={tintColor} />
         )
       }
     },

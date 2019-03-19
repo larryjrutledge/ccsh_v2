@@ -22,7 +22,7 @@ const HomeStackNavigator = createStackNavigator({
       )
     }
   },
-  Connect: {
+  WelcomeCard: {
     screen: ConnectCardScreen,
     headerMode: 'none',
     navigationOptions: {

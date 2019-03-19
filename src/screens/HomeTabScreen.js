@@ -186,6 +186,10 @@ class HomeTabScreen extends Component {
     ])
   }
 
+  routeItem = route => {
+    this.props.navigation.navigate(route)
+  }
+
   renderItem = item => {
     return (
       <TouchableOpacity
@@ -195,7 +199,7 @@ class HomeTabScreen extends Component {
           marginBottom: 3
           // paddingBottom: 5
         }}
-        onPress={() => alert('You pressed: ' + item.item.route)}
+        onPress={() => this.routeItem(item.item.route)}
       >
         <CachedProgressiveImage
           resizeMode="cover"
