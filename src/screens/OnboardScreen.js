@@ -36,7 +36,8 @@ const slides = [
     text:
       'Page 1 text - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sem tortor, pellentesque sed neque nec, rhoncus dapibus ligula.',
     icon: 'ios-images',
-    colors: ['#144e76', '#3a85bf']
+    // colors: ['#3f6b6b', '#121212']
+    colors: ['#144e76', '#121212']
   },
   {
     key: 'key-userProfile',
@@ -44,7 +45,7 @@ const slides = [
     text:
       'page 2 text - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sem tortor, pellentesque sed neque nec, rhoncus dapibus ligula.',
     icon: 'ios-options',
-    colors: ['#144e76', '#3a85bf']
+    colors: ['#144e76', '#121212']
   },
   {
     key: 'key-pushNotifications',
@@ -52,7 +53,7 @@ const slides = [
     text:
       'Page 3 Text - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sem tortor, pellentesque sed neque nec, rhoncus dapibus ligula.',
     icon: 'ios-beer',
-    colors: ['#144e76', '#3a85bf']
+    colors: ['#144e76', '#121212']
   }
 ]
 
