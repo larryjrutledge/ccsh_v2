@@ -12,7 +12,7 @@ export const decodeBlogTitle = str => {
 export const getBlogImage = item => {
   const media = item._embedded['wp:featuredmedia'][0]
   let image_url =
-    'http://christchapelspringhill.com/wp-content/uploads/2018/08/jeremy-bishop-72608-unsplash-150x150.jpg'
+    'http://christchapel.live/wp-content/uploads/2018/08/jeremy-bishop-72608-unsplash-150x150.jpg'
   if ('media_details' in media) {
     image_url = media.media_details.sizes.full.source_url
   }
@@ -45,6 +45,53 @@ export const getMMSSFromMillis = millis => {
   }
 
   return padWithZero(minutes) + ':' + padWithZero(seconds)
+}
+
+export const getMediaList = async mediaType => {
+  var mediaList = []
+  const dbPath = Constants.MEDIA_ROUTE
+
+  await firebase
+    .database()
+    .ref(dbPath)
+    .once('value', snapshot => {
+      snapshot.forEach(childSnapshot => {
+        var trackList = []
+
+        if (
+          childSnapshot.val().type === mediaType ||
+          mediaType === Constants.MEDIA_TYPE.ALL
+        ) {
+          if (childSnapshot.val().tracks !== undefined) {
+            trackEntries = Object.entries(childSnapshot.val().tracks)
+            trackEntries.map((item, index) => {
+              trackList.push({
+                key: item[0],
+                albumKey: childSnapshot.key,
+                title: item[1].title,
+                fileName: item[1].file_name,
+                url: item[1].remote_url
+              })
+            })
+          }
+
+          var defaultCover =
+            'https://firebasestorage.googleapis.com/v0/b/ccsh-dev.appspot.com/o/Media%20Images%2Fheadphone.png?alt=media&token=090c8e9a-df7f-429d-8ea5-14bb4bf08055'
+          if (childSnapshot.val().cover) {
+            defaultCover = childSnapshot.val().cover
+          }
+          mediaList.push({
+            key: childSnapshot.key,
+            cover: defaultCover,
+            title: childSnapshot.val().title,
+            type: childSnapshot.val().type,
+            tracks: trackList
+          })
+        }
+      })
+    })
+
+  return mediaList
 }
 
 const buildEmailBody = (from, to, cc, bcc, subject, fields, templateID) => {

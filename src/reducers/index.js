@@ -5,6 +5,7 @@ import sermonAudioReducer from './sermonAudioReducer'
 import cacheImageReducer from './cacheImageReducer'
 import eventReducer from './eventReducer'
 import connectCardReducer from './connectCardReducer'
+import mediaPlayerReducer from './mediaPlayerReducer'
 
 export default combineReducers({
   profileReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   sermonAudioReducer,
   cacheImageReducer,
   eventReducer,
-  connectCardReducer
+  connectCardReducer,
+  mediaPlayerReducer
 })

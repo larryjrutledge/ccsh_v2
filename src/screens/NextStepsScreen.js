@@ -34,7 +34,7 @@ class NextStepsScreen extends React.Component {
     super()
 
     this.state = {
-      showNotifictionPopup: false,
+      showNotificationPopup: false,
       dialogMessage: '',
       nameValue: '',
       emailValue: '',
@@ -147,7 +147,7 @@ class NextStepsScreen extends React.Component {
         <PopupDialog
           width={0.75}
           dialogAnimation={new ScaleAnimation()}
-          visible={this.state.showNotifictionPopup}
+          visible={this.state.showNotificationPopup}
           onTouchOutside={() => {
             this.setState({ showNotificationPopup: false })
           }}

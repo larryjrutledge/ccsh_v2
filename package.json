@@ -11,6 +11,7 @@
   "dependencies": {
     "@expo/react-native-action-sheet": "^1.1.2",
     "@expo/status-bar-height": "^0.0.1",
+    "accordion-collapse-react-native": "^0.1.10",
     "expo": "^32.0.0",
     "firebase": "^5.5.7",
     "formik": "^1.5.1",

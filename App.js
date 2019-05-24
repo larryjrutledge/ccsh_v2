@@ -6,7 +6,8 @@ import App from 'src/App'
 
 YellowBox.ignoreWarnings([
   'Warning: isMounted(...) is deprecated',
-  'Module RCTImageLoader'
+  'Module RCTImageLoader',
+  'Require cycle:'
 ])
 
 Sentry.enableInExpoDevelopment = true

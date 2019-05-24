@@ -257,13 +257,15 @@ class OnboardScreen extends React.Component {
     <React.Fragment>
       <Ionicons
         style={{
-          backgroundColor: 'transparent'
+          backgroundColor: 'transparent',
+          borderColor: 'yellow',
+          borderWidth: 2
         }}
         name={props.icon}
         size={200}
         color="white"
       />
-      <View>
+      <View style={{ borderColor: 'white', borderWidth: 2 }}>
         <Text style={styles.title}>{props.title}</Text>
         <Text style={styles.text}>{props.text}</Text>
       </View>

@@ -71,12 +71,13 @@ class SermonTabScreen extends Component {
     })
   }
 
+  // asyncGreeting().then(result => console.log(result));
   _closeAudioPlayer = () => {
-    this.child.handleClose()
-
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
-    this.setState({
-      showPlayer: false
+    this.child.handleClose().then(() => {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+      this.setState({
+        showPlayer: false
+      })
     })
   }
 
@@ -97,7 +98,7 @@ class SermonTabScreen extends Component {
             shadowColor: '#000',
             shadowOffset: { width: 0, height: 1 },
             shadowOpacity: 0.4,
-            shadowRadisu: 1,
+            shadowRadius: 1,
             elevation: 5,
             flexDirection: 'row',
             alignSelf: 'stretch',

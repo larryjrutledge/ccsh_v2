@@ -52,6 +52,12 @@ export const MARKETING_TYPE = {
   OTHER: 4
 }
 
+export const MEDIA_TYPE = {
+  UNKNOWN: 'unknown',
+  ALL: 'all',
+  MUSIC: 'music'
+}
+
 // Regular Expression Patterns
 export const REG_EXP_PHONE = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/
 
@@ -68,3 +74,4 @@ export const NEXT_STEPS_TEMPLATE_ID = 'd-3770e9fbc4f744f1a939663352540b74'
 
 export const MAIN_SCREEN_ROUTE = 'admin/configuration/mainScreen/'
 export const FORM_EMAIL_ROUTE = 'admin/configuration/forms/'
+export const MEDIA_ROUTE = 'admin/configuration/media/'

@@ -70,6 +70,9 @@ class AudioPlayer extends React.Component {
 
       if (status.didJustFinish) {
         this.playbackInstance.setPositionAsync(0)
+        if (this.props.playbackCompleted) {
+          this.props.playbackCompleted()
+        }
         KeepAwake.deactivate()
       }
     } else {
@@ -278,8 +281,8 @@ class AudioPlayer extends React.Component {
                 resizeMethod="scale"
                 style={{
                   flex: 1,
-                  borderColor: 'white',
-                  borderWidth: 2,
+                  // borderColor: 'white',
+                  // borderWidth: 2,
                   width: undefined,
                   height: undefined
                 }}
@@ -310,8 +313,8 @@ class AudioPlayer extends React.Component {
               <View
                 style={{
                   flex: 1,
-                  borderColor: 'white',
-                  borderWidth: 2,
+                  // borderColor: 'white',
+                  // borderWidth: 2,
 
                   alignItems: 'flex-start',
                   justifyContent: 'flex-start',

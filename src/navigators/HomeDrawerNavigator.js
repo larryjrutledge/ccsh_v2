@@ -1,12 +1,18 @@
 import React from 'react'
 import { createAppContainer, createDrawerNavigator } from 'react-navigation'
-import { FontAwesome, MaterialIcons, SimpleLineIcons } from '@expo/vector-icons'
+import {
+  AntDesign,
+  FontAwesome,
+  MaterialIcons,
+  SimpleLineIcons
+} from '@expo/vector-icons'
 
 import { connect } from 'react-redux'
 
 import HomeBottomTabNavigator from 'src/navigators/HomeBottomTabNavigator'
 import ContactScreen from 'src/screens/ContactScreen'
 import PrayerRequestScreen from 'src/screens/PrayerRequestScreen'
+import MediaPlayerScreen from 'src/screens/MediaPlayerScreen'
 import LocationScreen from 'src/screens/LocationScreen'
 import SettingsScreen from 'src/screens/SettingsScreen'
 import NextStepsScreen from 'src/screens/NextStepsScreen'
@@ -43,6 +49,15 @@ const HomeDrawerNavigator = createDrawerNavigator(
             size={20}
             color={tintColor}
           />
+        )
+      }
+    },
+    Media: {
+      screen: MediaPlayerScreen,
+      navigationOptions: {
+        drawerLabel: 'Media Player',
+        drawerIcon: ({ tintColor }) => (
+          <AntDesign name="sound" size={20} color={tintColor} />
         )
       }
     },
