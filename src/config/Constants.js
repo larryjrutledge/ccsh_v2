@@ -75,3 +75,6 @@ export const NEXT_STEPS_TEMPLATE_ID = 'd-3770e9fbc4f744f1a939663352540b74'
 export const MAIN_SCREEN_ROUTE = 'admin/configuration/mainScreen/'
 export const FORM_EMAIL_ROUTE = 'admin/configuration/forms/'
 export const MEDIA_ROUTE = 'admin/configuration/media/'
+
+export const DEFAULT_IMAGE =
+  'https://firebasestorage.googleapis.com/v0/b/ccsh-dev.appspot.com/o/default_image.png?alt=media&token=003bad6d-699f-4999-a66b-91312f9c7ea0'

@@ -75,8 +75,7 @@ export const getMediaList = async mediaType => {
             })
           }
 
-          var defaultCover =
-            'https://firebasestorage.googleapis.com/v0/b/ccsh-dev.appspot.com/o/Media%20Images%2Fheadphone.png?alt=media&token=090c8e9a-df7f-429d-8ea5-14bb4bf08055'
+          var defaultCover = Constants.DEFAULT_IMAGE
           if (childSnapshot.val().cover) {
             defaultCover = childSnapshot.val().cover
           }

@@ -4,7 +4,7 @@
     "description": "A Place to Belong",
     "slug": "christchapelsh",
     "privacy": "public",
-    "sdkVersion": "32.0.0",
+    "sdkVersion": "33.0.0",
     "platforms": ["ios", "android"],
     "version": "2.0.0",
     "orientation": "portrait",
@@ -35,7 +35,10 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.daysevenstudios.christchapelsh",
       "buildNumber": "2.0.0",
-      "icon": "./src/assets/images/icon.png"
+      "icon": "./src/assets/images/icon.png",
+      "infoPlist": {
+        "UIBackgroundModes": ["audio"]
+      }
     },
     "android": {
       "package": "com.daysevenstudios.christchapelsh",

@@ -11,13 +11,12 @@ import {
 import { NavigationEvents } from 'react-navigation'
 
 import { LinearGradient } from 'expo'
-import { Feather } from '@expo/vector-icons'
+import { AntDesign, Feather } from '@expo/vector-icons'
 
 import { connect } from 'react-redux'
 import Moment from 'moment'
 
 import { mediaPlayerFetch } from 'src/actions/mediaPlayerActions'
-import { getMediaList } from 'src/config/Utils'
 import * as Constants from 'src/config/Constants'
 
 import AudioPlayer from 'src/components/AudioPlayer'
@@ -36,17 +35,6 @@ class MediaPlayerScreen extends Component {
 
   fetchMediaList = mediaType => {
     this.props.mediaListFetch(mediaType)
-  }
-
-  _renderAlbumList() {
-    if (
-      this.state.mediaList === undefined ||
-      this.state.mediaList.length == 0
-    ) {
-      getMediaList(Constants.MEDIA_TYPE.ALL).then(mediaList => {
-        this.setState({ mediaList: mediaList })
-      })
-    }
   }
 
   render() {
@@ -77,10 +65,14 @@ class MediaPlayerScreen extends Component {
               alert('You pressed me!')
             }}
           />
-          {this._renderAlbumList()}
-          <ScrollView>
-            <MediaList data={this.state.mediaList} />
-          </ScrollView>
+          <View style={{ flex: 2 }}>
+            <AudioPlayer />
+          </View>
+          <View style={{ flex: 1 }}>
+            <ScrollView>
+              <MediaList data={this.props.mediaList} />
+            </ScrollView>
+          </View>
         </SafeAreaView>
       </LinearGradient>
     )

@@ -15,7 +15,7 @@ const mediaPlayerReducer = (state = initialState, action) => {
     MEDIA_PLAYER_FETCH_SUCCESS
   } = actionTypes
 
-  console.log('[DEBUG] mediaPlayerReducer: action: ', action)
+  // console.log('[DEBUG] mediaPlayerReducer: action: ', action)
   switch (action.type) {
     case MEDIA_PLAYER_FETCH_HAS_ERROR:
       return { ...state, hasError: action.fetchHasError }

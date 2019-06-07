@@ -12,6 +12,8 @@ import { BarIndicator } from 'src/components/Indicators'
 import { CachedProgressiveImage } from 'src/components/Image'
 import { getMMSSFromMillis } from 'src/config/Utils'
 
+import * as Constants from 'src/config/Constants'
+
 var { width: SCREEN_WIDTH } = Dimensions.get('window')
 class AudioPlayer extends React.Component {
   constructor() {
@@ -43,7 +45,8 @@ class AudioPlayer extends React.Component {
       playsInSilentModeIOS: true,
       shouldDuckAndroid: true,
       interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DO_NOT_MIX,
-      playThroughEarpieceAndroid: true
+      playThroughEarpieceAndroid: true,
+      staysActiveInBackground: true
     })
   }
 
@@ -73,7 +76,7 @@ class AudioPlayer extends React.Component {
         if (this.props.playbackCompleted) {
           this.props.playbackCompleted()
         }
-        KeepAwake.deactivate()
+        // KeepAwake.deactivate()
       }
     } else {
       if (status.error) {
@@ -133,10 +136,10 @@ class AudioPlayer extends React.Component {
     if (this.playbackInstance !== null) {
       if (this.state.isPlaying) {
         this.playbackInstance.pauseAsync()
-        KeepAwake.deactivate()
+        // KeepAwake.deactivate()
       } else {
         this.playbackInstance.playAsync()
-        KeepAwake.activate()
+        // KeepAwake.activate()
       }
     }
   }
@@ -177,7 +180,7 @@ class AudioPlayer extends React.Component {
 
   handleClose = async () => {
     if (this.playbackInstance !== null) {
-      KeepAwake.deactivate()
+      // KeepAwake.deactivate()
       await this.playbackInstance.stopAsync()
       await this.playbackInstance.unloadAsync()
       this.playbackInstance.setOnPlaybackStatusUpdate(null)
@@ -186,6 +189,7 @@ class AudioPlayer extends React.Component {
   }
 
   createPlayer = async () => {
+    console.log('[DEBUG] audio player: audio_url: ', this.props.audio_url)
     const source = {
       uri: this.props.audio_url
     }
@@ -205,7 +209,7 @@ class AudioPlayer extends React.Component {
     this.playbackInstance = sound
     this.playbackInstance.playAsync()
 
-    KeepAwake.activate()
+    // KeepAwake.activate()
   }
 
   newAudio = async () => {
@@ -224,6 +228,7 @@ class AudioPlayer extends React.Component {
   }
 
   render() {
+    console.log('[DEBUG] audio player: props: ', this.props)
     return (
       <LinearGradient
         colors={['#0f2027', '#203a43', '#2c5364', '#203a43', '#0f2027']}
@@ -278,17 +283,17 @@ class AudioPlayer extends React.Component {
             >
               <CachedProgressiveImage
                 resizeMode="contain"
-                resizeMethod="scale"
+                resizeMethod="auto"
                 style={{
                   flex: 1,
-                  // borderColor: 'white',
-                  // borderWidth: 2,
+                  borderColor: 'white',
+                  borderWidth: 2,
                   width: undefined,
                   height: undefined
                 }}
                 // source={this.getSource()}
                 source={{
-                  uri: this.props.image_url
+                  uri: this.props.image_url || Constants.DEFAULT_IMAGE
                 }}
                 ttl={30}
               />
